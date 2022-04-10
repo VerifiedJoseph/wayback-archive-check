@@ -74,26 +74,55 @@ function snapshotData(data, type ='page') {
 		}
 	} catch (exception) {
 		Ui.content(type + '_message', exception.message);
-		//Ui.hide('archive-version');
-		//Ui.hide('archive-history');
 	}
 }
 
+/**
+ * Get domian from URL
+ * @param {string} url
+ * @return {string} domian with protocol (http:// or https://)
+ */
 function getDomian(url) {
 	var regex = new RegExp(global.domainRegex);
-	var domian;
-	
-	domian = url.match(regex);
-
+	var domian =  url.match(regex);
 	return domian[1];
 }
 
-/**
- * Is the URL valid?
- * @param {boolean} status
- */
-function isValid(status) {
-	if (status === true) { // URL is valid,
+Settings.load().then(data => {
+	settings = data;
+
+	Debug.enable(settings.logDebugInfo);
+	Debug.log('Settings loaded');
+
+	if (settings.domainCheck === false) {
+		Ui.hide('domain_details');
+	}
+
+	if (settings.pageCheck === false) {
+		Ui.hide('page_details');
+	}
+
+	var query = {
+		currentWindow: true,
+		active: true
+	}
+
+	return browser.tabs.query(query);
+}).then(tabs => {
+	var tab = tabs[0];
+
+	// Since chrome 79 (Dec 2019), the property 'pendingUrl' is returned by the tabs.query API when a tab is loading.
+	// Firefox (71) does not currently support this property.
+	if (tab.status === 'loading' && tab.hasOwnProperty('pendingUrl')) {
+		url = tab.pendingUrl;
+	} else {
+		url = tab.url;
+	}
+
+	// Validate the current page URL
+	return validate(url);
+}).then(valid => {
+	if (valid === true) { // URL is valid,
 		if (settings.domainCheck === true && settings.pageCheck === true) {
 			if (settings.hideViewButtons === true) {
 				Ui.addClass('archive', 'long');
@@ -128,47 +157,7 @@ function isValid(status) {
 		Ui.display('overlay');
 		Ui.hide('page_details');
 		Ui.hide('domain_details');
-
-		// Add .overlay to #options-box
-		Ui.addClass('options-box', 'overlay');
 	}
-}
-
-Settings.load().then(data => {
-	settings = data;
-
-	Debug.enable(settings.logDebugInfo);
-	Debug.log('Settings loaded');
-
-	if (settings.domainCheck === false) {
-		Ui.hide('domain_details');
-	}
-
-	if (settings.pageCheck === false) {
-		Ui.hide('page_details');
-	}
-
-	var query = {
-		currentWindow: true,
-		active: true
-	}
-
-	browser.tabs.query(query, tabs => {
-		var tab = tabs[0];
-
-		// Since chrome 79 (Dec 2019), the property 'pendingUrl' is returned by the tabs.query API when a tab is loading.
-		// Firefox (71) does not currently support this property.
-		if (tab.status === 'loading' && tab.hasOwnProperty('pendingUrl')) {
-			url = tabs[0].pendingUrl;
-		} else {
-			url = tabs[0].url;
-		}
-
-		console.log(tabs[0]);
-
-		// Validate the current page URL
-		validate(url, isValid);
-	});
 });
 
 /*
