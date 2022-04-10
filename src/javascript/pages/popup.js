@@ -58,7 +58,7 @@ function snapshotData(data, type ='page') {
 			Ui.display(type + '_timesince');
 		}
 
-		if (type === 'page') {
+		if (type === 'page' && settings.hideViewButtons === false) {
 			Ui.display('archive-version');
 			Ui.display('archive-history');
 
@@ -95,8 +95,13 @@ function getDomian(url) {
 function isValid(status) {
 	if (status === true) { // URL is valid,
 		if (settings.domainCheck === true && settings.pageCheck === true) {
-			Ui.addClass('archive', 'long');
-			Ui.addClass('overlay', 'long');
+			if (settings.hideViewButtons === true) {
+				Ui.addClass('archive', 'long');
+				Ui.addClass('overlay', 'long');
+			} else {
+				Ui.addClass('archive', 'long-with-buttons');
+				Ui.addClass('overlay', 'long-with-buttons');
+			}
 		}
 
 		if (settings.domainCheck === true) {

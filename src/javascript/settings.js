@@ -12,6 +12,7 @@ const Settings = {
 		displayFullDate: true, // Display full time and date using user selected formats
 		displayTimeSince: false, // Display time past since date (e.g: "1 hour ago")
 
+		hideViewButtons: false,
 		domainCheck: false,
 		pageCheck: true,
 

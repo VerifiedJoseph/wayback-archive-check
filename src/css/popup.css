@@ -19,6 +19,10 @@ body {
 }
 
 #archive.long {
+	height: 150px;
+}
+
+#archive.long-with-buttons {
 	height: 200px;
 }
 
@@ -64,6 +68,10 @@ body {
 }
 
 #overlay.long {
+	height: 150px;
+}
+
+#overlay.long-with-buttons {
 	height: 204px;
 }
 

@@ -116,7 +116,8 @@ function saveSettings() {
 
 		pageCheck: document.getElementById('page_check').checked,
 		domainCheck: document.getElementById('domain_check').checked,
-		
+		hideViewButtons: document.getElementById('hide_view_buttons').checked,
+
 		logDebugInfo: document.getElementById('debug_log').checked
 	};
 
