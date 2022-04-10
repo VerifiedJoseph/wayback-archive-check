@@ -7,7 +7,7 @@ var defaults = Settings.getDefaults();
 
 /**
  * Display the settings
- * @param {object} Settings
+ * @param {object} list
  */
 function displaySettings(list) {
 	// Timezone
@@ -28,6 +28,8 @@ function displaySettings(list) {
 	document.getElementById('page_check').checked = list.pageCheck;
 	document.getElementById('domain_check').checked = list.domainCheck;
 
+	document.getElementById('hide_view_buttons').checked = list.hideViewButtons;
+	
 	// Log debug messages
 	document.getElementById('debug_log').checked = list.logDebugInfo;
 
