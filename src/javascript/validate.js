@@ -6,11 +6,10 @@
 /**
  * Validate a URL or IP address (IPv4)
  * @param {string} url
- * @param {callable} callback
+ * @return {boolean}
  */
-function validate(url, callback) {
-	var valid = true,
-		hostname,
+function validate(url) {
+	var hostname,
 		urlRegex = new RegExp(global.urlRegex);
 
 	Debug.log('Vaildating URL: ' + url);
@@ -31,14 +30,9 @@ function validate(url, callback) {
 
 		Debug.log('URL is valid: ' + url);
 
+		return true;
 	} catch (exception) {
-		valid = false;
+		return false;
 		Debug.log(exception.message);
 	}
-
-	/**
-	 * @callback validate~callback
-	 * @param {boolean} valid.
-	 */
-	callback(valid);
 }
