@@ -96,8 +96,8 @@ const Format = {
 			now = spacetime();
 
 		// Set timezone
-		before = before.goto(settings.get('timeZone'));
-		now = now.goto(settings.get('timeZone'));
+		before = before.goto(settings.timeZone);
+		now = now.goto(settings.timeZone);
 
 		var diif = now.since(before).diff;
 
