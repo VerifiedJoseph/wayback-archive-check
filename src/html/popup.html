@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Popup</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<link rel="stylesheet" type="text/css" href="../css/popup.css">
+	<link rel="stylesheet" type="text/css" href="../css/loading.css">
+</head>
+
+<body>
+	<div class="wrapper">
+		<div id="overlay" class="hide">
+			<div class="title">
+				<p id="overlay-title">Archiving Page...</p>
+			</div>
+			<button id="overlay-button" class="overlay hide">View page</button>
+			<p class="reason" id="overlay-reason"></p>
+		</div>
+		<div id="archive">
+			<div class="details">
+				<div id="title" class="title">
+					<strong>Page archived:</strong>
+				</div>
+				<div id="message">
+					Loading...
+				</div>
+				<div id="time-date" class="hide">
+					<div id="date"></div>
+					<div>at <span id="time"></span></div>
+				</div>
+				<div id="time-since" class="hide">
+					<p id="since"></p>
+				</div>
+			</div>
+
+			<button class="popup margin hide" id="archive-version">View archived page</button>
+			<button class="popup hide" id="archive-history">View page history</button>
+		</div>
+		<div id="options-box">
+			<div class="left">
+				<button class="left small popup" id="options">Options</button>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<script src="../javascript/global.js"></script>
+	<script src="../javascript/settings.js"></script>
+	<script src="../javascript/debug.js"></script>
+	<script src="../javascript/validate.js"></script>
+	<script src="../javascript/ui.js"></script>
+	<script src="../javascript/format.js"></script>
+	<script src="../javascript/snapshot.js"></script>
+	<script src="../javascript/libraries/spacetime.js"></script>
+	<script src="../javascript/pages/popup.js"></script>
+</body>
+
+</html>

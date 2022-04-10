@@ -1,0 +1,21 @@
+{
+	"extensionName": {
+		"message": "Wayback Archive Check",
+		"description": "Name of the extension."
+	},
+
+	"extensionDescription": {
+		"message": "Check the last time a page was archived in Wayback Machine.",
+		"description": "Description of the extension."
+	},
+
+	"UrlValidationFailed": {
+		"message": "URL not supported",
+		"description": "Text telling the user that the page was not archived as its URL failed validation."
+	},
+
+	"ApiRequestFailed": {
+		"message": "Unable to fetch page details from the Wayback Machine.",
+		"description": "Text telling the user that the request to Wayback Machine API has failed."
+	}
+}

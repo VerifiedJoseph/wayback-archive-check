@@ -1,0 +1,82 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+body {
+	background-color: #FFF;
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.hide {
+	display: none !important;
+}
+
+
+/* Buttons */
+button::-moz-focus-inner {
+	padding: 0;
+	border: 0
+}
+
+button {
+	background-color: #f5f5f5;
+	border: 1px solid #ccc;
+	display: inline-block;
+	cursor: pointer;
+	min-width: 70px;
+	font-size: 14px;
+	padding: 2px;
+	height: 23px;
+}
+
+button:disabled {
+	color: #999999;
+	cursor: not-allowed;
+}
+
+button:focus {
+	color: black;
+	outline: 1px solid;
+	border: 1px solid #ccc;
+}
+
+button.small {
+	width: 74px;
+}
+
+button.popup {
+	width: 152px;
+}
+
+button.margin {
+	margin-bottom: 4px;
+}
+
+button.overlay {
+	margin-top: 20px;
+	width: 120px;
+}

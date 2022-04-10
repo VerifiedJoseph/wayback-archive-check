@@ -1,0 +1,78 @@
+body {
+	line-height: 1;
+	height: 100%;
+	width: 160px;
+}
+
+.wrapper {
+	margin: 0 auto;
+	background: white;
+	width: inherit;
+	height: inherit;
+	position: relative;
+}
+
+/* Archive & statistics Divs */
+#archive {
+	padding: 4px;
+	height: 131px;
+}
+
+.details {
+	text-align: center;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	height: 65px;
+}
+
+.title {
+	padding-top: 2px;
+}
+
+#time-date,
+#message {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#time-since {
+	padding-top: 18px;
+}
+
+#date {
+	padding-bottom: 4px;
+}
+
+#options-box {
+	padding: 0px 0px 4px 4px;
+}
+
+/* Overlay */
+#overlay {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	color: white;
+	height: 135px;
+	font-weight: 700;
+	padding: 12px;
+	top: -4px;
+}
+
+#overlay,
+#options-box.overlay {
+	background-color: rgba(80, 69, 61, 0.9);
+}
+
+#overlay > .title {
+	height: 14px;
+}
+
+#overlay > .reason {
+	padding-top: 25px;
+}
+
+#overlay > .reason,
+#overlay > .title {
+	text-shadow: 1px 1px 1px #212121;
+}
