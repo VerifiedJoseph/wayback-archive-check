@@ -1,4 +1,4 @@
-# Save to the Wayback Machine
+# Wayback Archive Check
 ![Screenshot](assets/screenshots/readme-screenshot.png)
 
 Browser extension for checking if a page is in Internet Archive's [Wayback Machine](https://web.archive.org).
