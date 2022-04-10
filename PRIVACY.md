@@ -1,6 +1,6 @@
 # Privacy Policy
 
-This document governs the manner in which the Save to the Wayback Archive Check ("the browser extension") collects, uses or discloses information collected from users of the browser extension. This privacy policy applies to all versions of the browser extension on all platforms.
+This document governs the manner in which the Wayback Archive Check ("the browser extension") collects, uses or discloses information collected from users of the browser extension. This privacy policy applies to all versions of the browser extension on all platforms.
 
 ## Personal Information
 The browser extension does not collect, use or disclose personal information with the exception of IP addresses. The IP address of the user is used as part of standard HTTP requests. The browser extension does not keep a record of the user's IP address.
