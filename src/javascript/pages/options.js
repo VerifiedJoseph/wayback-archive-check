@@ -154,20 +154,6 @@ function resetSettings() {
 }
 
 /*
-	Preview selected alert sound
-*/
-function previewSound() {
-	var sound = document.getElementById('note_sound_list').value,
-		file = global.alertSounds[sound],
-		preview;
-
-	if (typeof file !== 'undefined') {
-		preview = new Audio('../sounds/' + file);
-		preview.play();
-	}
-}
-
-/*
 	InputEvent handler callback
 */
 function inputEventHandler(event) {
