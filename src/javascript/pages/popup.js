@@ -78,14 +78,14 @@ function snapshotData(data, type ='page') {
 }
 
 /**
- * Get domian from URL
+ * Get domain from URL
  * @param {string} url
- * @return {string} domian with protocol (http:// or https://)
+ * @return {string} domain with protocol (http:// or https://)
  */
-function getDomian(url) {
+function getDomain(url) {
 	var regex = new RegExp(global.domainRegex);
-	var domian =  url.match(regex);
-	return domian[1];
+	var domain =  url.match(regex);
+	return domain[1];
 }
 
 Settings.load().then(data => {
@@ -134,7 +134,7 @@ Settings.load().then(data => {
 		}
 
 		if (settings.domainCheck === true) {
-			var domain = getDomian(url);
+			var domain = getDomain(url);
 
 			Snapshot.get(domain).then(data => {
 				snapshotData(data, 'domain');	
