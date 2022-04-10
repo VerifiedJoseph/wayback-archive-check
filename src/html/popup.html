@@ -13,25 +13,39 @@
 	<div class="wrapper">
 		<div id="overlay" class="hide">
 			<div class="title">
-				<p id="overlay-title">Archiving Page...</p>
+				<p id="overlay-title"></p>
 			</div>
-			<button id="overlay-button" class="overlay hide">View page</button>
 			<p class="reason" id="overlay-reason"></p>
 		</div>
 		<div id="archive">
-			<div class="details">
-				<div id="title" class="title">
-					<strong>Page archived:</strong>
+			<div id="domain_details" class="details">
+				<div id="domain_title" class="title">
+					<strong>Domain archived:</strong>
 				</div>
-				<div id="message">
+				<div id="domain_message" class="message">
 					Loading...
 				</div>
-				<div id="time-date" class="hide">
-					<div id="date"></div>
-					<div>at <span id="time"></span></div>
+				<div id="domain_timedate" class="timedate hide">
+					<div id="domain_date" class="date"></div>
+					<div>at <span id="domain_time"></span></div>
 				</div>
-				<div id="time-since" class="hide">
-					<p id="since"></p>
+				<div id="domain_timesince" class="timesince hide">
+					<p id="domain_since"></p>
+				</div>
+			</div>
+			<div id="page_details" class="details">
+				<div id="page_title" class="title">
+					<strong>Page archived:</strong>
+				</div>
+				<div id="page_message" class="message">
+					Loading...
+				</div>
+				<div id="page_timedate" class="timedate hide">
+					<div id="page_date" class="date"></div>
+					<div>at <span id="page_time"></span></div>
+				</div>
+				<div id="page_timesince" class="timesince hide">
+					<p id="page_since"></p>
 				</div>
 			</div>
 

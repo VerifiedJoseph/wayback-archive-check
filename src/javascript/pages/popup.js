@@ -30,7 +30,7 @@ function tab(pageUrl) {
  * Format and display data returned by Wayback Availability API
  * @param {object} response
  */
-function snapshotData(data) {
+function snapshotData(data, type ='page') {
 	try {
 		if (data.error === true) {
 			Debug.log('API Data not fetched for ' + url);
@@ -42,38 +42,50 @@ function snapshotData(data) {
 			throw new Error(browser.i18n.getMessage('ApiPageNotArchived'));
 		}
 
-		Ui.hide('message');
-		Ui.display('archive-version');
-		Ui.display('archive-history');
+		Ui.hide(type + '_message');
 
 		// Convert timestamp to ISO 8601 format
 		var isoString = Format.convertToIso(data.timestamp);
 
 		if (settings.displayFullDate === true) { // Display Full date and time 
-			Ui.content('date', Format.date(isoString));
-			Ui.content('time', Format.time(isoString));
-			Ui.display('time-date');
+			Ui.content(type + '_date', Format.date(isoString));
+			Ui.content(type + '_time', Format.time(isoString));
+			Ui.display(type + '_timedate');
 
 		} else { // Display time since (e.g: "1 hour ago")
-			Ui.content('since', Format.timeSince(isoString, settings.timeZoneConvert));
-			Ui.title('since', Format.date(isoString) + ' ' + Format.time(isoString));
-			Ui.display('time-since');
+			Ui.content(type + '_since', Format.timeSince(isoString, settings.timeZoneConvert));
+			Ui.title(type + '_since', Format.date(isoString) + ' ' + Format.time(isoString));
+			Ui.display(type + '_timesince');
 		}
 
-		// Event listener for archive history button
-		document.getElementById('archive-history').addEventListener('click', function () {
-			tab(global.urls.calendar + url); // Create tab
-		});
+		if (type === 'page') {
+			Ui.display('archive-version');
+			Ui.display('archive-history');
 
-		// Event listener for archive version button
-		document.getElementById('archive-version').addEventListener('click', function () {
-			tab(global.urls.base + '/web/' + data.timestamp + '/' + url); // Create tab
-		});
+			// Event listener for archive history button
+			document.getElementById('archive-history').addEventListener('click', function () {
+				tab(global.urls.calendar + url); // Create tab
+			});
+
+			// Event listener for archive version button
+			document.getElementById('archive-version').addEventListener('click', function () {
+				tab(global.urls.base + '/web/' + data.timestamp + '/' + url); // Create tab
+			});
+		}
 	} catch (exception) {
-		Ui.content('message', exception.message);
-		Ui.hide('archive-version');
-		Ui.hide('archive-history');
+		Ui.content(type + '_message', exception.message);
+		//Ui.hide('archive-version');
+		//Ui.hide('archive-history');
 	}
+}
+
+function getDomian(url) {
+	var regex = new RegExp(global.domainRegex);
+	var domian;
+	
+	domian = url.match(regex);
+
+	return domian[1];
 }
 
 /**
@@ -81,11 +93,25 @@ function snapshotData(data) {
  * @param {boolean} status
  */
 function isValid(status) {
-
 	if (status === true) { // URL is valid,
-		Snapshot.get(url).then(data => {
-			snapshotData(data);	
-		});
+		if (settings.domainCheck === true && settings.pageCheck === true) {
+			Ui.addClass('archive', 'long');
+			Ui.addClass('overlay', 'long');
+		}
+
+		if (settings.domainCheck === true) {
+			var domain = getDomian(url);
+
+			Snapshot.get(domain).then(data => {
+				snapshotData(data, 'domain');	
+			});
+		}
+
+		if (settings.pageCheck === true) {
+			Snapshot.get(url).then(data => {
+				snapshotData(data, 'page');	
+			});
+		}
 	} else { // URL is not valid.
 		
 		// Disable archive button
@@ -95,8 +121,8 @@ function isValid(status) {
 		Ui.content('overlay-reason', browser.i18n.getMessage('UrlValidationFailed'));
 
 		Ui.display('overlay');
-		Ui.hide('title');
-		Ui.hide('message');
+		Ui.hide('page_details');
+		Ui.hide('domain_details');
 
 		// Add .overlay to #options-box
 		Ui.addClass('options-box', 'overlay');
@@ -108,6 +134,14 @@ Settings.load().then(data => {
 
 	Debug.enable(settings.logDebugInfo);
 	Debug.log('Settings loaded');
+
+	if (settings.domainCheck === false) {
+		Ui.hide('domain_details');
+	}
+
+	if (settings.pageCheck === false) {
+		Ui.hide('page_details');
+	}
 
 	var query = {
 		currentWindow: true,

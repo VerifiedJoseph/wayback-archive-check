@@ -25,6 +25,9 @@ function displaySettings(list) {
 	// Time since
 	document.getElementById('time_since_archive').checked = list.displayTimeSince;
 
+	document.getElementById('page_check').checked = list.pageCheck;
+	document.getElementById('domain_check').checked = list.domainCheck;
+
 	// Log debug messages
 	document.getElementById('debug_log').checked = list.logDebugInfo;
 
@@ -85,14 +88,17 @@ function displayTimeZones() {
 /**
  * Show message
  * @param {string} text
+ * @param {string} text
  */
-function message(text) {
+function message(text, hide = true) {
 	Ui.content('status', text);
 	Ui.display('status');
 
-	setTimeout(function () { // Set Timeout
-		Ui.hide('status');
-	}, 1750);
+	if (hide === true) {
+		setTimeout(function () { // Set Timeout
+			Ui.hide('status');
+		}, 1750);
+	}
 }
 
 
@@ -107,16 +113,25 @@ function saveSettings() {
 
 		displayFullDate: document.getElementById('full_date_time').checked,
 		displayTimeSince: document.getElementById('time_since_archive').checked,
+
+		pageCheck: document.getElementById('page_check').checked,
+		domainCheck: document.getElementById('domain_check').checked,
+		
 		logDebugInfo: document.getElementById('debug_log').checked
 	};
 
-	var status = Settings.update(items);
-
-	if (status === true) {
-		message('Options saved');
+	if (items.pageCheck === false && items.domainCheck === false) {
+		message('At least one check archive status option must be enabled', false);
 
 	} else {
-		message('An error occurred, Try again');
+		var status = Settings.update(items);
+
+		if (status === true) {
+			message('Options saved');
+	
+		} else {
+			message('An error occurred, Try again');
+		}
 	}
 }
 
@@ -156,40 +171,6 @@ function inputEventHandler(event) {
 	var input = event.target;
 
 	switch (input.id) {
-	case 'context_menu': // Right Click Menus
-
-		if (input.checked) {
-			Ui.enableInput('context_menu_page');
-			Ui.enableInput('context_menu_link');
-			Ui.enableInput('context_menu_image');
-			Ui.enableInput('context_menu_view_page');
-			Ui.enableInput('context_menu_view_link');
-			Ui.enableInput('context_menu_view_image');
-			Ui.enableInput('context_note');
-		} else {
-			Ui.disableInput('context_menu_page');
-			Ui.disableInput('context_menu_link');
-			Ui.disableInput('context_menu_image');
-			Ui.disableInput('context_menu_view_page');
-			Ui.disableInput('context_menu_view_link');
-			Ui.disableInput('context_menu_view_image');
-			Ui.disableInput('context_note');
-		}
-
-		break;
-	case 'note_sound': // Notifications (Sound)
-
-		if (input.checked) {
-			Ui.enableInput('note_sound_list');
-			Ui.enableInput('preview_sound');
-			Ui.removeClass('note-sound', 'disabled');
-		} else {
-			Ui.disableInput('note_sound_list');
-			Ui.disableInput('preview_sound');
-			Ui.addClass('note-sound', 'disabled');
-		}
-	
-		break;
 	case 'full_date_time': // Display full date and time
 
 		if (input.checked) {
