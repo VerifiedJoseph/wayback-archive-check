@@ -122,17 +122,7 @@ Settings.load().then(data => {
 	// Validate the current page URL
 	return validate(url);
 }).then(valid => {
-	if (valid === true) { // URL is valid,
-		if (settings.domainCheck === true && settings.pageCheck === true) {
-			if (settings.hideViewButtons === true) {
-				Ui.addClass('archive', 'long');
-				Ui.addClass('overlay', 'long');
-			} else {
-				Ui.addClass('archive', 'long-with-buttons');
-				Ui.addClass('overlay', 'long-with-buttons');
-			}
-		}
-
+	if (valid === true) { // URL is valid
 		if (settings.domainCheck === true) {
 			var domain = getDomain(url);
 
@@ -152,8 +142,7 @@ Settings.load().then(data => {
 		Ui.addClass('options-box', 'overlay');
 
 		Ui.display('overlay');
-		Ui.hide('page_details');
-		Ui.hide('domain_details');
+		Ui.hide('archive');
 	}
 });
 

@@ -15,22 +15,15 @@ body {
 /* Archive & statistics Divs */
 #archive {
 	padding: 4px;
-	height: 131px;
-}
-
-#archive.long {
-	height: 150px;
-}
-
-#archive.long-with-buttons {
-	height: 200px;
+	min-height: 150px;
+	/*height: 131px;*/
 }
 
 .details {
 	text-align: center;
 	margin-top: 4px;
 	margin-bottom: 4px;
-	height: 65px;
+	min-height: 68px;
 }
 
 .title {
@@ -57,14 +50,12 @@ body {
 
 /* Overlay */
 #overlay {
-	position: absolute;
 	width: 100%;
 	text-align: center;
 	color: white;
 	height: 135px;
 	font-weight: 700;
 	padding: 12px;
-	top: -4px;
 }
 
 #overlay.long {
