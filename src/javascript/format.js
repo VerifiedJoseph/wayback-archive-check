@@ -22,7 +22,7 @@ const Format = {
 	 * @param {string} customFormat Custom date format
 	 * @return {string}
 	 */
-	date: function(isoString, customFormat) {
+	date: function (isoString, customFormat) {
 		var d = spacetime(isoString),
 			format = settings.dateFormat;
 

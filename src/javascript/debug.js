@@ -10,7 +10,7 @@ const Debug = {
 	 * Enable logging
 	 * @param {boolean} status 
 	 */
-	enable: function(status) {
+	enable: function (status) {
 		this.enabled = status;
 	},
 
@@ -18,7 +18,7 @@ const Debug = {
 	 * Log text in the console
 	 * @param {string} text
 	 */
-	log: function(text) {
+	log: function (text) {
 		if (this.enabled === true && text !== undefined) {
 			console.log(text);
 		}

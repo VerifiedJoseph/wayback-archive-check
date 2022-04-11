@@ -20,11 +20,11 @@ const Settings = {
 		logDebugInfo: false // Log debug messages in the developer console.
 	},
 
- 	load: function() {
+	load: function () {
 		return browser.storage.sync.get(this.defaults);
 	},
 
-	getDefaults: function() {
+	getDefaults: function () {
 		return this.defaults;
 	},
 
@@ -34,7 +34,7 @@ const Settings = {
 	 * @param {callback} callback
 	 * @callback {boolean} status
 	 */
-	update: function(items) {
+	update: function (items) {
 		var storage = browser.storage.sync.set(items);
 
 		storage.catch(error => {
@@ -46,8 +46,7 @@ const Settings = {
 		return true;
 	},
 
-	reset: function() {
+	reset: function () {
 		return this.update(this.defaults);
 	}
 }
-

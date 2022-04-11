@@ -29,7 +29,7 @@ function displaySettings(list) {
 	document.getElementById('domain_check').checked = list.domainCheck;
 
 	document.getElementById('hide_view_buttons').checked = list.hideViewButtons;
-	
+
 	// Log debug messages
 	document.getElementById('debug_log').checked = list.logDebugInfo;
 
@@ -131,7 +131,7 @@ function saveSettings() {
 
 		if (status === true) {
 			message('Options saved');
-	
+
 		} else {
 			message('An error occurred, Try again');
 		}
@@ -142,7 +142,7 @@ function saveSettings() {
 	Reset user settings to defaults
 */
 function resetSettings() {
-	var status = Settings.reset(); 
+	var status = Settings.reset();
 
 	if (status === true) {
 		message('Options reset');
@@ -160,48 +160,48 @@ function inputEventHandler(event) {
 	var input = event.target;
 
 	switch (input.id) {
-	case 'full_date_time': // Display full date and time
+		case 'full_date_time': // Display full date and time
 
-		if (input.checked) {
-			Ui.enableInput('date_format');
-			Ui.enableInput('time_format');
-			Ui.removeClass('note-date', 'disabled');
-			Ui.removeClass('note-time', 'disabled');
-		}
+			if (input.checked) {
+				Ui.enableInput('date_format');
+				Ui.enableInput('time_format');
+				Ui.removeClass('note-date', 'disabled');
+				Ui.removeClass('note-time', 'disabled');
+			}
 
-		break;
-	case 'time_since_archive': // Display time since last archive
+			break;
+		case 'time_since_archive': // Display time since last archive
 
-		if (input.checked) {
-			Ui.addClass('note-date', 'disabled');
-			Ui.addClass('note-time', 'disabled');
+			if (input.checked) {
+				Ui.addClass('note-date', 'disabled');
+				Ui.addClass('note-time', 'disabled');
 
-			Ui.disableInput('date_format');
-			Ui.disableInput('time_format');
-		}
+				Ui.disableInput('date_format');
+				Ui.disableInput('time_format');
+			}
 
-		break;
-	case 'save': // Save user options
-		saveSettings();
+			break;
+		case 'save': // Save user options
+			saveSettings();
 
-		break;
-	case 'reset': // Reset user options
-		Ui.display('confirm');
-		Ui.hide('options');
+			break;
+		case 'reset': // Reset user options
+			Ui.display('confirm');
+			Ui.hide('options');
 
-		break;
-	case 'yes': // Yes, reset user options confirmed
-		resetSettings();
+			break;
+		case 'yes': // Yes, reset user options confirmed
+			resetSettings();
 
-		Ui.hide('confirm');
-		Ui.display('options');
+			Ui.hide('confirm');
+			Ui.display('options');
 
-		break;
-	case 'no': // No, hide rest confirm div
-		Ui.hide('confirm');
-		Ui.display('options');
+			break;
+		case 'no': // No, hide rest confirm div
+			Ui.hide('confirm');
+			Ui.display('options');
 
-		break;
+			break;
 	}
 }
 

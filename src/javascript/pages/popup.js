@@ -30,7 +30,7 @@ function tab(pageUrl) {
  * Format and display data returned by Wayback Availability API
  * @param {object} response
  */
-function snapshotData(data, type ='page') {
+function snapshotData(data, type = 'page') {
 	try {
 		if (data.error === true) {
 			Debug.log('API Data not fetched for ' + url);
@@ -84,7 +84,7 @@ function snapshotData(data, type ='page') {
  */
 function getDomain(url) {
 	var regex = new RegExp(global.domainRegex);
-	var domain =  url.match(regex);
+	var domain = url.match(regex);
 	return domain[1];
 }
 
@@ -137,13 +137,13 @@ Settings.load().then(data => {
 			var domain = getDomain(url);
 
 			Snapshot.get(domain).then(data => {
-				snapshotData(data, 'domain');	
+				snapshotData(data, 'domain');
 			});
 		}
 
 		if (settings.pageCheck === true) {
 			Snapshot.get(url).then(data => {
-				snapshotData(data, 'page');	
+				snapshotData(data, 'page');
 			});
 		}
 	} else { // URL is not valid.
