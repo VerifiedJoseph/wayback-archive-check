@@ -147,12 +147,10 @@ Settings.load().then(data => {
 			});
 		}
 	} else { // URL is not valid.
-		
-		// Disable archive button
-		Ui.disableInput('archive-now');
 
 		Ui.content('overlay-title', '');
 		Ui.content('overlay-reason', browser.i18n.getMessage('UrlValidationFailed'));
+		Ui.addClass('options-box', 'overlay');
 
 		Ui.display('overlay');
 		Ui.hide('page_details');
