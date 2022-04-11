@@ -15,7 +15,7 @@
 	},
 
 	"ApiRequestFailed": {
-		"message": "Unable to fetch page details from the Wayback Machine.",
+		"message": "API request failed",
 		"description": "Text telling the user that the request to Wayback Machine API has failed."
 	},
 
