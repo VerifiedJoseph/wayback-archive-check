@@ -38,7 +38,7 @@ function snapshotData(data, type = 'page') {
 		}
 
 		if (data.available === false) {
-			Debug.log('No snapshot returned for ' + url);
+			Debug.log('No snapshot returned  for ' + url);
 			throw new Error(browser.i18n.getMessage('ApiPageNotArchived'));
 		}
 
@@ -136,18 +136,17 @@ Settings.load().then(data => {
 		if (settings.domainCheck === true) {
 			var domain = getDomain(url);
 
-			Snapshot.get(domain).then(data => {
+			getSnapshot(domain, function(data) {
 				snapshotData(data, 'domain');
 			});
 		}
 
 		if (settings.pageCheck === true) {
-			Snapshot.get(url).then(data => {
+			getSnapshot(url, function(data) {
 				snapshotData(data, 'page');
 			});
 		}
 	} else { // URL is not valid.
-
 		Ui.content('overlay-title', '');
 		Ui.content('overlay-reason', browser.i18n.getMessage('UrlValidationFailed'));
 		Ui.addClass('options-box', 'overlay');
