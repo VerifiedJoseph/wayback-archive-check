@@ -12,11 +12,9 @@ body {
 	position: relative;
 }
 
-/* Archive & statistics Divs */
-#archive {
-	padding: 4px;
-	min-height: 150px;
-	/*height: 131px;*/
+#main, #more {
+	padding: 4px 4px 0px;
+	min-height: 150px;	
 }
 
 .details {
@@ -42,6 +40,28 @@ body {
 
 .date {
 	padding-bottom: 4px;
+}
+
+.buttons > button {
+	margin-bottom: 4px;
+}
+
+button.copy {
+	width: 90px;
+}
+
+select.popup {
+	width: 152px;
+}
+
+option.center-text {
+	text-align: center;
+}
+
+select:focus {
+    color: black;
+    outline: 1px solid;
+    border: 1px solid #ccc;
 }
 
 #options-box {

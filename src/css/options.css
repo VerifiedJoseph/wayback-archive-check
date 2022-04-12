@@ -81,65 +81,6 @@ input:disabled + div {
 	cursor: not-allowed;
 }
 
-/* Select dropdown */
-.select {
-	position: relative;
-	display: inline-block;
-}
-
-select.sound {
-	width: 70px;
-}
-
-select.number {
-	width: 65px;
-}
-
-select.date,
-select.time {
-	width: 130px;
-}
-
-select.timezone {
-	width: 169px;
-}
-
-.select span:after {
-	display: block;
-	content: " ";
-	position: absolute;
-	top: 7px;
-	right: 6px;
-	width: 0;
-	height: 0;
-	border-left: 4px solid transparent;
-	border-right: 4px solid transparent;
-	border-top: 8px solid #000;
-	pointer-events: none;
-}
-
-select {
-	padding-left: 5px;
-	width: 65px;
-	height: 23px;
-	border: 0;
-	border-radius: 0;
-	display: inline-block;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	border: 1px solid #ccc;
-}
-
-select:disabled {
-	cursor: not-allowed;
-}
-
-select:disabled ~ span:after {
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 8px solid #999999;
-}
-
 /* Checkbox and radio buttons */
 .radio {
 	margin-left: -1px;
