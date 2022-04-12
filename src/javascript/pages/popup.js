@@ -173,7 +173,7 @@ Settings.load().then(data => {
 		if (settings.hideMoreChecksButton === false) {
 			Ui.display('more-checks');
 
-			if (isIpAddress(url) === true) {
+			if (Url.isIpAddress(url) === true) {
 				Ui.disableInput('more-checks');
 				Ui.display('more-checks');
 				Ui.title('more-checks', 'Disabled. URL hostname is an IP address');
