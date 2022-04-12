@@ -15,6 +15,11 @@ var global = {
 	// URL and IPv4 validation with hostname capture
 	urlRegex: /^https?:\/\/(?:([a-zA-Z0-9-.]{1,256}\.[a-z]{2,20}|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)))(?:\:[0-9]{2,4})?\/(?:.+)?$/,
 	domainRegex: /^https?:\/\/([a-zA-Z0-9-.]{1,256})/,
+	subdomainRegex: /^https:\/\/([a-zA-Z0-9-]+)\.[a-zA-Z0-9-]+\.[a-z]{2,20}/,
+	pathRegex: /^https?:\/\/(?:.+)(\/(?:.+)?)$/,
+	wwwRegex: /^https:\/\/www\./,
+	protocolRegex: /^https?:\/\//,
+	ipRegex: /^https?:\/\/((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:\:[0-9]{2,4})?)\//,
 
 	// List of hostnames to not archive
 	hostnameDenylist: [
