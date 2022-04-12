@@ -78,7 +78,7 @@ function snapshotData(data, type = 'page') {
 }
 
 /**
- * 
+ *  Create more check dropdown options
  */
 function createMoreChecksList(url) {
 	var checks = [];
@@ -86,6 +86,9 @@ function createMoreChecksList(url) {
 	var domain = Url.getDomain(url);
 	var path = Url.getPath(url);
 
+	/*
+	 * Create a www option if URL does not have a www subdomain
+	 */
 	if (Url.hasWww(url) === false) {
 		checks.push(protocol + 'www.' + domain);
 
@@ -94,6 +97,9 @@ function createMoreChecksList(url) {
 		}
 	} 
 
+	/*
+	 * Create a root domain option if URL as www subdomain
+	 */
 	if (Url.hasWww(url) === true) {
 		var regex = new RegExp('^www\\.', '')
 		var domainNoWWW = domain.replace(regex, '');
@@ -106,6 +112,9 @@ function createMoreChecksList(url) {
 		}
 	}
 
+	/*
+	 * Create root domain options if URL has non-www subdomain
+	 */
 	if (Url.hasSubdomain(url) === true && Url.hasWww(url) === false) {
 		console.log(Url.getSubdomain(url));
 
