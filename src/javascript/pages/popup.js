@@ -240,7 +240,7 @@ Settings.load().then(data => {
 		}
 
 		if (settings.domainCheck === true) {
-			var domain = getDomain(url);
+			var domain = Url.getDomain(url);
 
 			getSnapshot(domain, function(data) {
 				snapshotData(data, 'domain');
