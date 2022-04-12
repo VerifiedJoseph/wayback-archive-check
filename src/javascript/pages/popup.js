@@ -78,14 +78,61 @@ function snapshotData(data, type = 'page') {
 }
 
 /**
- * Get domain from URL
- * @param {string} url
- * @return {string} domain with protocol (http:// or https://)
+ * 
  */
-function getDomain(url) {
-	var regex = new RegExp(global.domainRegex);
-	var domain = url.match(regex);
-	return domain[1];
+function createMoreChecksList(url) {
+	var checks = [];
+	var protocol = Url.getProtocol(url);
+	var domain = Url.getDomain(url);
+	var path = Url.getPath(url);
+
+	if (Url.hasWww(url) === false) {
+		checks.push(protocol + 'www.' + domain);
+
+		if (path !== '/') {
+			checks.push(protocol + 'www.' + domain + path);
+		}
+	} 
+
+	if (Url.hasWww(url) === true) {
+		var regex = new RegExp('^www\\.', '')
+		var domainNoWWW = domain.replace(regex, '');
+		console.log(domainNoWWW);
+
+		checks.push(protocol + domainNoWWW);
+
+		if (path !== '/') {
+			checks.push(protocol + domainNoWWW + path);
+		}
+	}
+
+	if (Url.hasSubdomain(url) === true && Url.hasWww(url) === false) {
+		console.log(Url.getSubdomain(url));
+
+		var regex = new RegExp('^'+ Url.getSubdomain(url) +'\\.', '')
+		var domainNoSub = domain.replace(regex, '');
+
+		checks.push(protocol + domainNoSub);
+
+		if (path !== '/') {
+			checks.push(protocol + domainNoSub + path);
+		}
+
+		checks.push(protocol + 'www.' + domainNoSub);
+
+		if (path !== '/') {
+			checks.push(protocol + 'www.' + domainNoSub + path);
+		}
+	}
+
+	var select = document.getElementById('checks');
+
+	checks.forEach((url) => {
+		var opt = document.createElement('option');
+		opt.value = url;
+		opt.innerText = url;
+		select.appendChild(opt);
+	});
 }
 
 Settings.load().then(data => {
@@ -123,6 +170,75 @@ Settings.load().then(data => {
 	return validate(url);
 }).then(valid => {
 	if (valid === true) { // URL is valid
+		if (settings.hideMoreChecksButton === false) {
+			Ui.display('more-checks');
+
+			if (isIpAddress(url) === true) {
+				Ui.disableInput('more-checks');
+				Ui.display('more-checks');
+				Ui.title('more-checks', 'Disabled. URL hostname is an IP address');
+
+			} else {
+				createMoreChecksList(url);
+
+				// Event listener for more checks button
+				document.getElementById('more-checks').addEventListener('click', function () {
+					Ui.display('more');
+					Ui.hide('main');
+					Ui.hide('more-checks');
+					Ui.display('back');
+				});
+
+				// Event listener for back button
+				document.getElementById('back').addEventListener('click', function () {
+					Ui.display('main');
+					Ui.hide('more');
+					Ui.hide('back');
+					Ui.hide('check_details');
+					Ui.display('more-checks');
+
+					document.getElementById('checks').options[0].selected = true;
+				});
+
+				// Event listener for checks dropdown
+				document.getElementById('checks').addEventListener('change', function(e) {
+					if (Ui.isDisplayed('check_details') === false) {
+						Ui.display('check_details');
+					}
+
+					Ui.content('check_message', 'Loading');
+					Ui.hide('check_timedate', '');
+					Ui.hide('copy-button');
+					Ui.display('check_message');
+
+					getSnapshot(e.target.value, function(data) {
+						Ui.display('copy-button');
+
+						snapshotData(data, 'check');
+					});
+				});
+			}
+
+			// Event listener for copy button
+			document.getElementById('copy-button').addEventListener('click', function (e) {
+				var value = document.getElementById('checks').value;
+
+				navigator.clipboard.writeText(value).then(function() {
+					Debug.log('Copied to clipboard');
+
+					Ui.content('copy-button', 'Copied');
+					Ui.disableInput('copy-button');
+
+					setTimeout(function () { // Set Timeout
+						Ui.content('copy-button', 'Copy URL');
+						Ui.enableInput('copy-button');
+					}, 1750);
+				}, function(err) {
+					console.error('Could not copy: ', err);
+				});
+			});
+		}
+
 		if (settings.domainCheck === true) {
 			var domain = getDomain(url);
 
@@ -142,7 +258,7 @@ Settings.load().then(data => {
 		Ui.addClass('options-box', 'overlay');
 
 		Ui.display('overlay');
-		Ui.hide('archive');
+		Ui.hide('main');
 	}
 });
 

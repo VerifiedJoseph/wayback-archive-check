@@ -6,7 +6,6 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/base.css">
 	<link rel="stylesheet" type="text/css" href="../css/popup.css">
-	<link rel="stylesheet" type="text/css" href="../css/loading.css">
 </head>
 
 <body>
@@ -17,7 +16,7 @@
 			</div>
 			<p class="reason" id="overlay-reason"></p>
 		</div>
-		<div id="archive">
+		<div id="main">
 			<div id="domain_details" class="details">
 				<div id="domain_title" class="title">
 					<strong>Domain archived:</strong>
@@ -44,20 +43,45 @@
 					<p id="page_since"></p>
 				</div>
 			</div>
-
-			<button class="popup margin hide" id="archive-version">View archived page</button>
-			<button class="popup hide" id="archive-history">View page history</button>
+			<div class="buttons">
+				<button class="popup hide" id="archive-version">View archived page</button>
+				<button class="popup hide" id="archive-history">View page history</button>
+			</div>
+		</div>
+		<div id="more" class="hide">
+			<div class="select">
+				<select class="popup" id="checks">
+					<option class="center-text" selected disabled>Select a check</option>
+				</select>
+				<span></span>
+			</div>
+			<div id="check_details" class="details hide">
+				<div id="check_title" class="title">
+					<strong>URL archived:</strong>
+				</div>
+				<div id="check_message" class="message">Loading...</div>
+				<div id="check_timedate" class="timedate hide">
+					<div id="check_date" class="date"></div>
+					<div>at <span id="check_time"></span></div>
+				</div>
+				<div id="check_timesince" class="timesince hide">
+					<p id="check_since"></p>
+				</div>
+				<div>
+					<button class="copy hide" id="copy-button">Copy URL</button>
+				</div>
+			</div>
 		</div>
 		<div id="options-box">
-			<div class="left">
-				<button class="left small popup" id="options">Options</button>
-			</div>
-			<div class="clear"></div>
+			<button class="popup hide margin" id="back">Back</button>
+			<button class="popup hide margin" id="more-checks">More checks</button>
+			<button class="popup" id="options">Options</button>
 		</div>
 	</div>
 	<script src="../javascript/global.js"></script>
 	<script src="../javascript/settings.js"></script>
 	<script src="../javascript/debug.js"></script>
+	<script src="../javascript/url.js"></script>
 	<script src="../javascript/validate.js"></script>
 	<script src="../javascript/ui.js"></script>
 	<script src="../javascript/format.js"></script>
