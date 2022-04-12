@@ -29,6 +29,7 @@ function displaySettings(list) {
 	document.getElementById('domain_check').checked = list.domainCheck;
 
 	document.getElementById('hide_view_buttons').checked = list.hideViewButtons;
+	document.getElementById('hide_more_checks_button').checked = list.hideMoreChecksButton;
 
 	// Log debug messages
 	document.getElementById('debug_log').checked = list.logDebugInfo;
@@ -119,6 +120,7 @@ function saveSettings() {
 		pageCheck: document.getElementById('page_check').checked,
 		domainCheck: document.getElementById('domain_check').checked,
 		hideViewButtons: document.getElementById('hide_view_buttons').checked,
+		hideMoreChecksButton: document.getElementById('hide_more_checks_button').checked,
 
 		logDebugInfo: document.getElementById('debug_log').checked
 	};
