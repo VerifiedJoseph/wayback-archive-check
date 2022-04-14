@@ -19,7 +19,7 @@
 		<div id="main">
 			<div id="domain_details" class="details">
 				<div id="domain_title" class="title">
-					<strong>Domain archived:</strong>
+					<strong>Domain:</strong>
 				</div>
 				<div id="domain_message" class="message">Loading...</div>
 				<div id="domain_timedate" class="timedate hide">
@@ -30,9 +30,22 @@
 					<p id="domain_since"></p>
 				</div>
 			</div>
+			<div id="subdomain_details" class="details">
+				<div id="subdomain_title" class="title">
+					<strong>Subdomain:</strong>
+				</div>
+				<div id="subdomain_message" class="message">Loading...</div>
+				<div id="subdomain_timedate" class="timedate hide">
+					<div id="subdomain_date" class="date"></div>
+					<div>at <span id="subdomain_time"></span></div>
+				</div>
+				<div id="subdomain_timesince" class="timesince hide">
+					<p id="subdomain_since"></p>
+				</div>
+			</div>
 			<div id="page_details" class="details">
 				<div id="page_title" class="title">
-					<strong>Page archived:</strong>
+					<strong>Page:</strong>
 				</div>
 				<div id="page_message" class="message">Loading...</div>
 				<div id="page_timedate" class="timedate hide">
@@ -48,33 +61,7 @@
 				<button class="popup hide" id="archive-history">View page history</button>
 			</div>
 		</div>
-		<div id="more" class="hide">
-			<div class="select">
-				<select class="popup" id="checks">
-					<option class="center-text" selected disabled>Select a check</option>
-				</select>
-				<span></span>
-			</div>
-			<div id="check_details" class="details hide">
-				<div id="check_title" class="title">
-					<strong>URL archived:</strong>
-				</div>
-				<div id="check_message" class="message">Loading...</div>
-				<div id="check_timedate" class="timedate hide">
-					<div id="check_date" class="date"></div>
-					<div>at <span id="check_time"></span></div>
-				</div>
-				<div id="check_timesince" class="timesince hide">
-					<p id="check_since"></p>
-				</div>
-				<div>
-					<button class="copy hide" id="copy-button">Copy URL</button>
-				</div>
-			</div>
-		</div>
 		<div id="options-box">
-			<button class="popup hide margin" id="back">Back</button>
-			<button class="popup hide margin" id="more-checks">More checks</button>
 			<button class="popup" id="options">Options</button>
 		</div>
 	</div>

@@ -77,71 +77,6 @@ function snapshotData(data, type = 'page') {
 	}
 }
 
-/**
- *  Create more check dropdown options
- */
-function createMoreChecksList(url) {
-	var checks = [];
-	var protocol = Url.getProtocol(url);
-	var domain = Url.getDomain(url);
-	var path = Url.getPath(url);
-
-	/*
-	 * Create a www option if URL does not have a www subdomain
-	 */
-	if (Url.hasWww(url) === false) {
-		checks.push(protocol + 'www.' + domain);
-
-		if (path !== '/') {
-			checks.push(protocol + 'www.' + domain + path);
-		}
-	} 
-
-	/*
-	 * Create a root domain option if URL as www subdomain
-	 */
-	if (Url.hasWww(url) === true) {
-		var regex = new RegExp('^www\\.', '')
-		var domainNoWWW = domain.replace(regex, '');
-		console.log(domainNoWWW);
-
-		checks.push(protocol + domainNoWWW);
-
-		if (path !== '/') {
-			checks.push(protocol + domainNoWWW + path);
-		}
-	}
-
-	/*
-	 * Create root domain options if URL has non-www subdomain
-	 */
-	if (Url.hasSubdomain(url) === true && Url.hasWww(url) === false) {
-		var regex = new RegExp('^'+ Url.getSubdomain(url) +'\\.', '')
-		var domainNoSub = domain.replace(regex, '');
-
-		checks.push(protocol + domainNoSub);
-
-		if (path !== '/') {
-			checks.push(protocol + domainNoSub + path);
-		}
-
-		checks.push(protocol + 'www.' + domainNoSub);
-
-		if (path !== '/') {
-			checks.push(protocol + 'www.' + domainNoSub + path);
-		}
-	}
-
-	var select = document.getElementById('checks');
-
-	checks.forEach((url) => {
-		var opt = document.createElement('option');
-		opt.value = url;
-		opt.innerText = url;
-		select.appendChild(opt);
-	});
-}
-
 Settings.load().then(data => {
 	settings = data;
 
@@ -177,81 +112,31 @@ Settings.load().then(data => {
 	return validate(url);
 }).then(valid => {
 	if (valid === true) { // URL is valid
-		if (settings.hideMoreChecksButton === false) {
-			Ui.display('more-checks');
+		var domain = Url.getDomain(url);
 
-			if (Url.isIpAddress(url) === true) {
-				Ui.disableInput('more-checks');
-				Ui.display('more-checks');
-				Ui.title('more-checks', 'Disabled. URL hostname is an IP address');
+		if (settings.domainCheck === true) {
+			if (Url.hasSubdomain(url) === true) {
+				console.log('^' + Url.getSubdomain(url) +'\\.');
 
-			} else {
-				createMoreChecksList(url);
-
-				// Event listener for more checks button
-				document.getElementById('more-checks').addEventListener('click', function () {
-					Ui.display('more');
-					Ui.hide('main');
-					Ui.hide('more-checks');
-					Ui.display('back');
-				});
-
-				// Event listener for back button
-				document.getElementById('back').addEventListener('click', function () {
-					Ui.display('main');
-					Ui.hide('more');
-					Ui.hide('back');
-					Ui.hide('check_details');
-					Ui.display('more-checks');
-
-					document.getElementById('checks').options[0].selected = true;
-				});
-
-				// Event listener for checks dropdown
-				document.getElementById('checks').addEventListener('change', function(e) {
-					if (Ui.isDisplayed('check_details') === false) {
-						Ui.display('check_details');
-					}
-
-					Ui.content('check_message', 'Loading');
-					Ui.hide('check_timedate', '');
-					Ui.hide('copy-button');
-					Ui.display('check_message');
-
-					getSnapshot(e.target.value, function(data) {
-						Ui.display('copy-button');
-
-						snapshotData(data, 'check');
-					});
-				});
+				var regex = new RegExp('^'+ Url.getSubdomain(url) +'\\.', '')
+				domain = domain.replace(regex, '');
 			}
 
-			// Event listener for copy button
-			document.getElementById('copy-button').addEventListener('click', function (e) {
-				var value = document.getElementById('checks').value;
-
-				navigator.clipboard.writeText(value).then(function() {
-					Debug.log('Copied to clipboard');
-
-					Ui.content('copy-button', 'Copied');
-					Ui.disableInput('copy-button');
-
-					setTimeout(function () { // Set Timeout
-						Ui.content('copy-button', 'Copy URL');
-						Ui.enableInput('copy-button');
-					}, 1750);
-				}, function(err) {
-					console.error('Could not copy: ', err);
-				});
+			getSnapshot(Url.getProtocol(url) + domain, function(data) {
+				snapshotData(data, 'domain');
 			});
 		}
 
-		if (settings.domainCheck === true) {
-			var domain = Url.getDomain(url);
+		if (settings.subdomainCheck === true) {
+			if (Url.hasSubdomain(url) === true) {
+				var domain = Url.getProtocol(url) + Url.getDomain(url);
 
-			getSnapshot(domain, function(data) {
-				snapshotData(data, 'domain');
-			});
+				getSnapshot(domain, function(data) {
+					snapshotData(data, 'subdomain');
+				});
+			} else {
+				Ui.content('subdomain_message', 'Not detected');
+			}
 		}
 
 		if (settings.pageCheck === true) {
