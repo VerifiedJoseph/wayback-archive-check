@@ -20,7 +20,7 @@
 	},
 
 	"ApiPageNotArchived": {
-		"message": "Page not archived",
+		"message": "Not archived",
 		"description": "Text telling the user that a page has not been archived by the Wayback Machine."
 	}
 }
