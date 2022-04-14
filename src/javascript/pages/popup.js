@@ -116,8 +116,6 @@ function createMoreChecksList(url) {
 	 * Create root domain options if URL has non-www subdomain
 	 */
 	if (Url.hasSubdomain(url) === true && Url.hasWww(url) === false) {
-		console.log(Url.getSubdomain(url));
-
 		var regex = new RegExp('^'+ Url.getSubdomain(url) +'\\.', '')
 		var domainNoSub = domain.replace(regex, '');
 
