@@ -27,9 +27,9 @@ function displaySettings(list) {
 
 	document.getElementById('page_check').checked = list.pageCheck;
 	document.getElementById('domain_check').checked = list.domainCheck;
+	document.getElementById('subdomain_check').checked = list.subdomainCheck;
 
 	document.getElementById('hide_view_buttons').checked = list.hideViewButtons;
-	document.getElementById('hide_more_checks_button').checked = list.hideMoreChecksButton;
 
 	// Log debug messages
 	document.getElementById('debug_log').checked = list.logDebugInfo;
@@ -119,13 +119,13 @@ function saveSettings() {
 
 		pageCheck: document.getElementById('page_check').checked,
 		domainCheck: document.getElementById('domain_check').checked,
+		subdomainCheck: document.getElementById('subdomain_check').checked,
 		hideViewButtons: document.getElementById('hide_view_buttons').checked,
-		hideMoreChecksButton: document.getElementById('hide_more_checks_button').checked,
 
 		logDebugInfo: document.getElementById('debug_log').checked
 	};
 
-	if (items.pageCheck === false && items.domainCheck === false) {
+	if (items.pageCheck === false && items.domainCheck === false && items.subdomainCheck === false) {
 		message('At least one check archive status option must be enabled', false);
 
 	} else {

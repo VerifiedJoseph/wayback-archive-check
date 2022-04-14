@@ -13,9 +13,9 @@ const Settings = {
 		displayTimeSince: false, // Display time past since date (e.g: "1 hour ago")
 
 		hideViewButtons: false,
-		hideMoreChecksButton: false,
 
 		domainCheck: false,
+		subdomainCheck: false,
 		pageCheck: true,
 
 		// Debug
