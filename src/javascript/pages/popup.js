@@ -83,8 +83,12 @@ Settings.load().then(data => {
 	Debug.enable(settings.logDebugInfo);
 	Debug.log('Settings loaded');
 
-	if (settings.domainCheck === false) {
-		Ui.hide('domain_details');
+	if (settings.domainCheck === true) {
+		Ui.display('domain_details');
+	}
+
+	if (settings.subdomainCheck === true) {
+		Ui.display('subdomain_details');
 	}
 
 	if (settings.pageCheck === false) {
