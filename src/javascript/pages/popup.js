@@ -119,12 +119,12 @@ Settings.load().then(data => {
 		var domain = Url.getDomain(url);
 
 		if (settings.domainCheck === true) {
-			if (Url.hasSubdomain(url) === true) {
-				console.log('^' + Url.getSubdomain(url) +'\\.');
-
+			if (Url.hasSubdomain(url) === true) { // remove subdomain if found
 				var regex = new RegExp('^'+ Url.getSubdomain(url) +'\\.', '')
 				domain = domain.replace(regex, '');
 			}
+
+			Ui.title('domain_details', Url.getProtocol(url) + domain);
 
 			getSnapshot(Url.getProtocol(url) + domain, function(data) {
 				snapshotData(data, 'domain');
@@ -135,6 +135,8 @@ Settings.load().then(data => {
 			if (Url.hasSubdomain(url) === true) {
 				var domain = Url.getProtocol(url) + Url.getDomain(url);
 
+				Ui.title('subdomain_details', domain);
+
 				getSnapshot(domain, function(data) {
 					snapshotData(data, 'subdomain');
 				});
@@ -144,6 +146,8 @@ Settings.load().then(data => {
 		}
 
 		if (settings.pageCheck === true) {
+			Ui.title('page_details', url);
+
 			getSnapshot(url, function(data) {
 				snapshotData(data, 'page');
 			});
