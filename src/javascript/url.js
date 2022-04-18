@@ -74,7 +74,7 @@ const Url = {
 	 * @param {string} url 
 	 * @returns boolean
 	 */
-	 hasSubdomain: function(url) {
+	hasSubdomain: function(url) {
 		return global.subdomainRegex.test(url);
 	}
 }
