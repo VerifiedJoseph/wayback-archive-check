@@ -38,17 +38,6 @@ const Url = {
 	},
 
 	/**
-	 * Get path from URL
-	 * @param {string} url
-	 * @return {string} URL path
-	 */
-	getPath: function(url) {
-		var regex = new RegExp(global.pathRegex);
-		var path = url.match(regex);
-		return path[1];
-	},
-
-	/**
 	 * Check if URL hostname is an IP address
 	 * 
 	 * @param {string} url 
