@@ -52,6 +52,7 @@ button.copy {
 
 select.popup {
 	width: 152px;
+	height: 20px;
 }
 
 option.center-text {

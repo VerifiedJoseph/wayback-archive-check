@@ -77,6 +77,51 @@ function snapshotData(data, type = 'page') {
 	}
 }
 
+function createSubdomainChecks(parsed) {
+	var subdomainsArray = parsed.subdomain.split('.');
+	var select = document.getElementById('subdomain_select');
+
+	// Default 
+	var opt = document.createElement('option');
+	var value = Url.getProtocol(url) + parsed.subdomain + '.' + parsed.domain;
+
+	opt.value = value;
+	opt.innerText = value;
+	select.appendChild(opt);
+
+	// More
+	if (subdomainsArray.length > 1) {
+		subdomainsArray.forEach((subdomain, index) => {
+			if (index !== 0) {
+				var next = index + 1;
+
+				if (subdomainsArray[next] && subdomainsArray[next] !== subdomain) {
+					subdomain += '.' + subdomainsArray[next];
+				}
+
+				var opt = document.createElement('option');
+				var value = Url.getProtocol(url) + subdomain + '.' + parsed.domain;
+	
+				opt.value = value;
+				opt.innerText = value;
+				select.appendChild(opt);
+			}
+		});
+
+		document.getElementById('subdomain_select').addEventListener('change', function(e) {
+			Ui.content('subdomain_message', 'Loading');
+			Ui.hide('subdomain_timedate', '');
+			Ui.display('subdomain_message');
+
+			getSnapshot(e.target.value, function(data) {
+				snapshotData(data, 'subdomain');
+			});
+		});
+
+		Ui.display('subdomain_select_div');
+	}
+}
+
 Settings.load().then(data => {
 	settings = data;
 
@@ -116,28 +161,24 @@ Settings.load().then(data => {
 	return validate(url);
 }).then(valid => {
 	if (valid === true) { // URL is valid
-		var domain = Url.getDomain(url);
+		var parsed = psl.parse(Url.getDomain(url));
 
 		if (settings.domainCheck === true) {
-			if (Url.hasSubdomain(url) === true) { // remove subdomain if found
-				var regex = new RegExp('^'+ Url.getSubdomain(url) +'\\.', '')
-				domain = domain.replace(regex, '');
-			}
+			Ui.title('domain_details', Url.getProtocol(url) + parsed.domain);
 
-			Ui.title('domain_details', Url.getProtocol(url) + domain);
-
-			getSnapshot(Url.getProtocol(url) + domain, function(data) {
+			getSnapshot(Url.getProtocol(url) + parsed.domain, function(data) {
 				snapshotData(data, 'domain');
 			});
 		}
 
 		if (settings.subdomainCheck === true) {
-			if (Url.hasSubdomain(url) === true) {
-				var domain = Url.getProtocol(url) + Url.getDomain(url);
+			if (parsed.subdomain !== null  && Url.hasWww(url) === false && Url.isIpAddress(url) === false) {
+				var subdomainUrl = Url.getProtocol(url) + parsed.subdomain + '.' +  parsed.domain;
 
-				Ui.title('subdomain_details', domain);
+				createSubdomainChecks(parsed);
+				Ui.title('subdomain_details', subdomainUrl);
 
-				getSnapshot(domain, function(data) {
+				getSnapshot(subdomainUrl, function(data) {
 					snapshotData(data, 'subdomain');
 				});
 			} else {
