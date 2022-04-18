@@ -55,15 +55,5 @@ const Url = {
 	 */
 	hasWww: function(url) {
 		return global.wwwRegex.test(url);
-	},
-
-	/**
-	 * Check if URL hostname has a non-www subdomain
-	 * 
-	 * @param {string} url 
-	 * @returns boolean
-	 */
-	hasSubdomain: function(url) {
-		return global.subdomainRegex.test(url);
 	}
 }
