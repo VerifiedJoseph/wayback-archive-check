@@ -172,7 +172,19 @@ Settings.load().then(data => {
 		}
 
 		if (settings.subdomainCheck === true) {
-			if (parsed.subdomain !== null  && Url.hasWww(url) === false && Url.isIpAddress(url) === false) {
+			try {
+				if (Url.isIpAddress(url) === true) {
+					throw new Error('Hostname is an IP address');
+				}
+
+				if (Url.hasWww(url) === true) {
+					throw new Error('No non-www subdomain detected for: ' + url);
+				}
+
+				if (parsed.subdomain === null) {
+					throw new Error('No subdomain detected for: ' + url);
+				}
+
 				var subdomainUrl = Url.getProtocol(url) + parsed.subdomain + '.' +  parsed.domain;
 
 				createSubdomainChecks(parsed);
@@ -181,7 +193,9 @@ Settings.load().then(data => {
 				getSnapshot(subdomainUrl, function(data) {
 					snapshotData(data, 'subdomain');
 				});
-			} else {
+
+			} catch (exception) {
+				Debug.log(exception.message);
 				Ui.content('subdomain_message', 'Not detected');
 			}
 		}
