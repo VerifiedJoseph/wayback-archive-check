@@ -164,7 +164,7 @@ Settings.load().then(data => {
 		var parsed = psl.parse(Url.getDomain(url));
 
 		if (settings.domainCheck === true) {
-			Ui.title('domain_details', Url.getProtocol(url) + parsed.domain);
+			Ui.title('domain_title', Url.getProtocol(url) + parsed.domain);
 
 			getSnapshot(Url.getProtocol(url) + parsed.domain, function(data) {
 				snapshotData(data, 'domain');
@@ -188,7 +188,7 @@ Settings.load().then(data => {
 				var subdomainUrl = Url.getProtocol(url) + parsed.subdomain + '.' +  parsed.domain;
 
 				createSubdomainChecks(parsed);
-				Ui.title('subdomain_details', subdomainUrl);
+				Ui.title('subdomain_title', subdomainUrl);
 
 				getSnapshot(subdomainUrl, function(data) {
 					snapshotData(data, 'subdomain');
@@ -201,7 +201,7 @@ Settings.load().then(data => {
 		}
 
 		if (settings.pageCheck === true) {
-			Ui.title('page_details', url);
+			Ui.title('page_title', url);
 
 			getSnapshot(url, function(data) {
 				snapshotData(data, 'page');
