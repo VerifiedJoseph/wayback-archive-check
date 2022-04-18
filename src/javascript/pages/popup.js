@@ -177,12 +177,12 @@ Settings.load().then(data => {
 					throw new Error('Hostname is an IP address');
 				}
 
-				if (Url.hasWww(url) === true) {
-					throw new Error('No non-www subdomain detected for: ' + url);
-				}
-
 				if (parsed.subdomain === null) {
 					throw new Error('No subdomain detected for: ' + url);
+				}
+
+				if (parsed.subdomain === 'www') {
+					throw new Error('No non-www subdomain detected for: ' + url);
 				}
 
 				var subdomainUrl = Url.getProtocol(url) + parsed.subdomain + '.' +  parsed.domain;
