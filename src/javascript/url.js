@@ -45,15 +45,5 @@ const Url = {
 	 */
 	isIpAddress: function(url) {
 		return global.ipRegex.test(url);
-	},
-
-	/**
-	 * Check if URL hostname has a www. subdomain
-	 * 
-	 * @param {string} url 
-	 * @returns boolean
-	 */
-	hasWww: function(url) {
-		return global.wwwRegex.test(url);
 	}
 }
