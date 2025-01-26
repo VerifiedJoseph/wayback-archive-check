@@ -8,8 +8,8 @@ Browser extension for checking if a page is in Internet Archive's [Wayback Machi
 [![Download from the Google Chrome Web Store](assets/badges/chrome.png)](https://chrome.google.com/webstore/detail/wayback-archive-check/hjmmibnbgnhfjhmngljdkbliaamjgbka)
 
 ## Dependencies
-- [Spacetime - JavaScript timezone library (v7.6.0)](https://github.com/spencermountain/spacetime)
-- [psl - JavaScript domain name parser (v1.9.0)](https://github.com/lupomontero/psl)
+- [Spacetime - JavaScript timezone library (v7.7.0)](https://github.com/spencermountain/spacetime)
+- [psl - JavaScript domain name parser (v1.15.0)](https://github.com/lupomontero/psl)
 
 ## License
 
