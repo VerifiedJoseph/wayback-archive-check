@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.12.0 Apache 2.0 */
+/* spencermountain/spacetime 7.13.0 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -75,8 +75,7 @@
     "4.5|n": "2/kabul",
     "3|s": "12/syowa,9/antananarivo",
     "3|n|04/24:00->10/29:24": "0/cairo,egypt",
-    "3|n|03/29:03->10/25:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/helsinki,8/kyiv,8/mariehamn,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye,8/nicosia,8/kiev,eet",
-    "3|n|03/29:02->10/25:03": "8/chisinau,8/tiraspol",
+    "3|n|03/29:03->10/25:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/chisinau,8/helsinki,8/kyiv,8/mariehamn,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye,8/nicosia,8/tiraspol,8/kiev,eet",
     "3|n|03/29:00->10/24:24": "2/beirut",
     "3|n|03/28:02->10/24:02": "2/gaza,2/hebron",
     "3|n|03/27:02->10/25:02": "2/jerusalem,2/tel_aviv,israel",
@@ -113,7 +112,8 @@
     "-9.5|n": "11/marquesas",
     "-8|n|03/08:02->11/01:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat,us/alaska",
     "-8|n": "11/pitcairn",
-    "-7|n|03/08:02->11/01:02": "1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/ensenada,6/pacific,10/bajanorte,us/pacific-new,us/pacific",
+    "-7|n|03/08:02->11/01:03": "1/vancouver,6/pacific",
+    "-7|n|03/08:02->11/01:02": "1/los_angeles,1/santa_isabel,1/tijuana,1/ensenada,10/bajanorte,us/pacific-new,us/pacific",
     "-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/mazatlan,1/phoenix,1/whitehorse,6/yukon,10/bajasur,us/arizona,mst",
     "-6|s|04/04:22->09/05:22": "11/easter,7/easterisland",
     "-6|n|04/07:02->10/27:02": "1/merida",
@@ -1385,7 +1385,7 @@
         s.tz = input.tz;
         return s
       }
-      const obj = Object.assign({}, input, today);
+      const obj = Object.assign({}, today, input);
       s = parseObject(s, obj);
       return s
     }
@@ -3866,7 +3866,8 @@
       }
       //keep current date, unless the month doesn't have it.
       if (keepDate[unit]) {
-        const max = monthLengths[want.month];
+        const year = want.year !== undefined ? want.year : old.year();
+        const max = getMonthLength(want.month, year);
         want.date = old.date();
         if (want.date > max) {
           want.date = max;
@@ -4176,7 +4177,7 @@
     return tzs
   };
 
-  var version = '7.12.0';
+  var version = '7.13.0';
 
   const main = (input, tz, options) => new SpaceTime(input, tz, options);
 
